@@ -6,153 +6,294 @@
     <title>Portfólio - Vitor Faccini da Cruz Morais</title>
     <style>
         /* TEMA ESCURO E CONFIGURAÇÕES GERAIS */
+        :root {
+            --primary-color: #3498db;
+            --secondary-color: #4dabf7;
+            --bg-dark: #121212;
+            --bg-card: #1e1e1e;
+            --text-light: #e0e0e0;
+            --text-muted: #adb5bd;
+        }
+
         body { 
             font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif; 
-            background-color: #121212; /* Fundo escuro */
-            color: #e0e0e0; /* Texto claro */
+            background-color: var(--bg-dark); 
+            color: var(--text-light); 
             margin: 0; 
             padding: 0; 
-        }
-        header { 
-            background-color: #1a1a1a; 
-            padding: 3rem 0; 
-            text-align: center; 
-            border-bottom: 3px solid #3498db;
-        }
-        .container { 
-            width: 80%; 
-            max-width: 900px; 
-            margin: 20px auto; 
-            background: #1e1e1e; 
-            padding: 40px; 
-            box-shadow: 0 4px 15px rgba(0,0,0,0.5); 
-            border-radius: 8px; 
+            line-height: 1.6;
         }
         
-        /* EFEITO NA FOTO DE PERFIL */
+        /* CABEÇALHO (HEADER) */
+        header { 
+            background: linear-gradient(135deg, #1a1a1a 0%, #0d0d0d 100%);
+            padding: 4rem 0 3rem 0; 
+            text-align: center; 
+            border-bottom: 3px solid var(--primary-color);
+        }
         .profile-img { 
             width: 180px; 
             height: 180px; 
             border-radius: 50%; 
             object-fit: cover; 
-            border: 4px solid #3498db; 
-            box-shadow: 0 4px 15px rgba(52, 152, 219, 0.4); 
-            margin-top: -100px; 
-            transition: transform 0.4s ease, box-shadow 0.4s ease; /* Transição suave */
+            border: 4px solid var(--primary-color); 
+            box-shadow: 0 4px 20px rgba(52, 152, 219, 0.4); 
+            margin-top: -120px; 
+            transition: transform 0.4s ease, box-shadow 0.4s ease;
         }
         .profile-img:hover {
-            transform: scale(1.15); /* Amplia 15% ao passar o mouse */
-            box-shadow: 0 8px 25px rgba(52, 152, 219, 0.7);
+            transform: scale(1.10); 
+            box-shadow: 0 8px 30px rgba(52, 152, 219, 0.7);
+        }
+        h1 { margin: 15px 0 5px 0; font-size: 2.5rem; color: #ffffff; letter-spacing: 1px; }
+        .subtitle { color: var(--secondary-color); font-size: 1.2rem; font-weight: 600; margin-bottom: 15px; }
+        .contact-info { color: var(--text-muted); font-size: 0.95rem; display: flex; justify-content: center; gap: 20px; flex-wrap: wrap; }
+        .contact-info span { display: flex; align-items: center; gap: 5px; }
+
+        /* CONTAINER PRINCIPAL */
+        .container { 
+            width: 85%; 
+            max-width: 1000px; 
+            margin: -30px auto 40px auto; /* Sobe um pouco sobre o header */
+            background: var(--bg-card); 
+            padding: 40px; 
+            box-shadow: 0 10px 30px rgba(0,0,0,0.7); 
+            border-radius: 12px; 
+            position: relative;
+            z-index: 10;
         }
 
-        h1 { margin-top: 15px; font-size: 2.2rem; color: #ffffff; }
-        h2 { color: #4dabf7; border-bottom: 1px solid #333; padding-bottom: 5px; margin-top: 35px; }
-        ul { line-height: 1.8; font-size: 1.05rem; }
-        .job-title { font-weight: bold; font-size: 1.1rem; color: #4dabf7; }
-        .company { color: #adb5bd; font-style: italic; }
+        section { margin-bottom: 40px; }
+        h2 { 
+            color: var(--secondary-color); 
+            border-bottom: 2px solid #333; 
+            padding-bottom: 8px; 
+            margin-top: 0;
+            font-size: 1.6rem;
+            display: inline-block;
+        }
 
-        /* GRID E EFEITOS DAS HABILIDADES (SKILLS) */
-        .skills-grid {
+        /* LISTAS E TEXTOS */
+        ul { padding-left: 20px; }
+        li { margin-bottom: 12px; }
+        .highlight { color: var(--secondary-color); font-weight: bold; }
+        
+        .timeline-item { margin-bottom: 25px; border-left: 2px solid #333; padding-left: 20px; position: relative; }
+        .timeline-item::before {
+            content: ''; position: absolute; left: -6px; top: 5px; width: 10px; height: 10px;
+            background: var(--primary-color); border-radius: 50%;
+        }
+        .job-title { font-weight: bold; font-size: 1.15rem; color: #ffffff; }
+        .company { color: var(--secondary-color); font-style: italic; font-size: 0.95rem; display: block; margin-bottom: 5px; }
+        .date { color: var(--text-muted); font-size: 0.85rem; }
+
+        /* FAIXA ROTATIVA (MARQUEE) DE TECNOLOGIAS */
+        .marquee-container {
+            width: 100%;
+            overflow: hidden;
+            background: #111;
+            padding: 15px 0;
+            border-radius: 8px;
+            margin-bottom: 30px;
+            box-shadow: inset 0 0 10px rgba(0,0,0,0.5);
             display: flex;
-            flex-wrap: wrap;
-            gap: 20px;
-            justify-content: center;
-            margin-top: 20px;
+        }
+        .marquee-content {
+            display: flex;
+            white-space: nowrap;
+            animation: scroll 20s linear infinite;
+        }
+        .marquee-content:hover { animation-play-state: paused; } /* Pausa ao passar o mouse */
+        .marquee-item {
+            font-size: 1.1rem;
+            font-weight: 600;
+            color: #fff;
+            padding: 0 30px;
+            text-transform: uppercase;
+            letter-spacing: 2px;
+            display: flex;
+            align-items: center;
+        }
+        .marquee-item::after {
+            content: '•';
+            color: var(--primary-color);
+            margin-left: 30px;
+        }
+        @keyframes scroll {
+            0% { transform: translateX(0); }
+            100% { transform: translateX(-50%); } /* Rola até a metade (conteúdo duplicado) */
+        }
+
+        /* GRID DE HABILIDADES (CARDS) */
+        .skills-grid {
+            display: flex; flex-wrap: wrap; gap: 20px; justify-content: center;
         }
         .skill-card {
-            background: #2a2a2a;
-            border: 1px solid #333;
-            border-radius: 10px;
-            padding: 15px;
-            width: 120px;
-            text-align: center;
-            cursor: pointer;
-            transition: transform 0.3s ease, background 0.3s ease;
+            background: #2a2a2a; border: 1px solid #333; border-radius: 10px;
+            padding: 15px; width: 120px; text-align: center; cursor: pointer;
+            transition: transform 0.3s ease, background 0.3s ease, border-color 0.3s ease;
         }
         .skill-card img {
-            max-width: 100%;
-            height: 60px;
-            object-fit: contain;
-            margin-bottom: 10px;
-            pointer-events: none; /* Impede bug visual ao arrastar a imagem */
+            max-width: 100%; height: 50px; object-fit: contain; margin-bottom: 10px; pointer-events: none;
         }
-        .skill-card p {
-            margin: 0;
-            font-size: 0.9rem;
-            font-weight: bold;
-        }
+        .skill-card p { margin: 0; font-size: 0.9rem; font-weight: bold; color: #ddd; }
         .skill-card:hover {
-            transform: scale(1.15); /* Amplia o card da habilidade */
-            background: #333;
-            border-color: #4dabf7;
+            transform: translateY(-8px); background: #333; border-color: var(--secondary-color);
+            box-shadow: 0 5px 15px rgba(52, 152, 219, 0.2);
         }
 
-        /* ESTILOS DA JANELA POP-UP (MODAL) */
+        /* GRID DE CURSOS */
+        .courses-grid {
+            display: grid; grid-template-columns: repeat(auto-fit, minmax(250px, 1fr)); gap: 15px;
+        }
+        .course-card {
+            background: #252525; padding: 15px; border-radius: 8px; border-left: 3px solid var(--primary-color);
+        }
+        .course-card h4 { margin: 0 0 5px 0; color: #fff; font-size: 1rem; }
+        .course-card p { margin: 0; color: var(--text-muted); font-size: 0.85rem; }
+
+        /* JANELA MODAL (POP-UP) */
         .modal {
-            display: none; 
-            position: fixed; 
-            top: 0; left: 0; 
-            width: 100%; height: 100%; 
-            background: rgba(0,0,0,0.8); 
-            justify-content: center; 
-            align-items: center; 
-            z-index: 1000;
+            display: none; position: fixed; top: 0; left: 0; width: 100%; height: 100%; 
+            background: rgba(0,0,0,0.85); justify-content: center; align-items: center; z-index: 1000;
+            backdrop-filter: blur(5px);
         }
         .modal-content {
-            background: #2a2a2a;
-            padding: 30px;
-            border-radius: 10px;
-            max-width: 500px;
-            text-align: center;
-            border: 1px solid #4dabf7;
-            box-shadow: 0 0 20px rgba(52, 152, 219, 0.3);
+            background: #1e1e1e; padding: 40px; border-radius: 12px; max-width: 500px; width: 90%;
+            text-align: center; border: 1px solid var(--primary-color);
+            box-shadow: 0 10px 40px rgba(52, 152, 219, 0.4);
+            position: relative;
         }
-        .modal-content h3 { color: #4dabf7; font-size: 1.8rem; margin-top: 0; }
-        .modal-content p { font-size: 1.1rem; line-height: 1.6; }
+        .modal-content h3 { color: var(--secondary-color); font-size: 2rem; margin-top: 0; }
+        .modal-content p { font-size: 1.1rem; line-height: 1.6; color: #ccc; }
         .close-btn {
-            background: #e74c3c;
-            color: white;
-            border: none;
-            padding: 10px 20px;
-            border-radius: 5px;
-            cursor: pointer;
-            font-size: 1rem;
-            font-weight: bold;
-            margin-top: 20px;
-            transition: background 0.3s ease;
+            background: #e74c3c; color: white; border: none; padding: 10px 25px; border-radius: 5px;
+            cursor: pointer; font-size: 1rem; font-weight: bold; margin-top: 25px;
+            transition: background 0.3s ease; text-transform: uppercase; letter-spacing: 1px;
         }
         .close-btn:hover { background: #c0392b; }
+
+        /* RODAPÉ */
+        footer { text-align: center; padding: 20px 0; color: var(--text-muted); font-size: 0.9rem; border-top: 1px solid #333; }
+
+        /* RESPONSIVIDADE */
+        @media (max-width: 768px) {
+            .container { width: 95%; padding: 25px; }
+            h1 { font-size: 2rem; }
+            .profile-img { width: 150px; height: 150px; margin-top: -100px; }
+        }
     </style>
 </head>
 <body>
 
     <header>
-        <img src="foto.jpeg" alt="Foto de Vitor Faccini da Cruz Morais" class="profile-img">
-        <h1>Vitor Faccini da Cruz Morais</h1>
-        <p style="color: #adb5bd;">Desenvolvedor de Softwares Multiplataforma (DSM)</p>
+        <img src="foto.jpeg" alt="Vitor Faccini da Cruz Morais" class="profile-img">
+        <h1>VITOR MORAIS</h1>
+        <div class="subtitle">Desenvolvedor de Softwares Multiplataforma (DSM)</div>
+        <div class="contact-info">
+            <span>📱 (16) 97402-5140</span>
+            <span>✉️ vitorfaccini93@gmail.com</span>
+            <span>📍 Ribeirão Corrente - São Paulo</span>
+        </div>
     </header>
 
     <div class="container">
+        
         <section>
-            <h2>Sobre Mim</h2>
-            <p>Estudante de Desenvolvimento de Softwares Multiplataforma (DSM), com forte foco em desenvolvimento Full-Stack, integração de APIs e análise de dados. Busco criar soluções tecnológicas eficientes e inovadoras, sempre mantendo alto padrão de qualidade em código e infraestrutura.</p>
+            <h2>Objetivo Profissional</h2>
+            <p>Busco uma oportunidade como estagiário, onde eu possa aplicar meus conhecimentos adquiridos no curso técnico em Desenvolvimento de Sistemas e na faculdade tecnóloga de Desenvolvimento de Software Multiplataforma (DSM). Tenho forte facilidade com tecnologia, boa comunicação, e estou altamente disposto a aprender e crescer profissionalmente contribuindo com a equipe para o desenvolvimento de soluções inovadoras.</p>
         </section>
 
         <section>
-            <h2>Atividades de Destaque</h2>
-            <ul>
-                <li>Desenvolvimento de API e interface frontend para um sistema de gestão de restaurantes.</li>
-                <li>Projeto Interdisciplinar (PI) envolvendo a integração de software com requisitos de sensores IoT (Internet das Coisas).</li>
-                <li>Criação de dashboard analítico e interativo no Power BI para visualização de dados de vendas.</li>
-                <li>Desenvolvimento de calculadora financeira backend em Node.js para estimar o valor intrínseco de ações no mercado financeiro.</li>
-            </ul>
+            <h2>Formação Acadêmica</h2>
+            <div class="timeline-item">
+                <span class="job-title">Desenvolvimento de Software Multiplataforma</span>
+                <span class="company">Faculdade de Tecnologia do Estado de São Paulo (FATEC)</span>
+                <span class="date">2025 - 2027</span>
+            </div>
+            <div class="timeline-item">
+                <span class="job-title">Ensino Médio Integrado com Desenvolvimento de Sistemas</span>
+                <span class="company">Escola Técnica Estadual de São Paulo (ETEC)</span>
+                <span class="date">2022 - 2024</span>
+            </div>
+        </section>
+
+        <section>
+            <h2>Projetos e Atividades de Destaque</h2>
+            
+            <div class="timeline-item">
+                <span class="job-title">PULMON – Aplicativo de Suporte a Portadores de Câncer de Pulmão</span>
+                <span class="company">Projeto de TCC | ETEC, 2024</span>
+                <p>Desenvolvimento de um aplicativo mobile com objetivo de oferecer informações, suporte e auxílio a pessoas diagnosticadas com câncer de pulmão. Foco em acessibilidade, usabilidade e empatia.</p>
+                <ul>
+                    <li><span class="highlight">Funcionalidades:</span> Agenda de consultas e medicamentos, dicas de bem-estar, alimentação e orientação visual de posições ideais para dormir.</li>
+                    <li><span class="highlight">Tecnologias:</span> Visual Studio Code, HTML, CSS, JavaScript, Cordova (para compilação em dispositivos Android).</li>
+                    <li>Projeto apresentado com destaque pela relevância social e viabilidade técnica.</li>
+                </ul>
+            </div>
+
+            <div class="timeline-item">
+                <span class="job-title">Sistema Integrado de Gestão de Restaurantes</span>
+                <p>Desenvolvimento completo de API e interface frontend com foco em alta performance e escalabilidade.</p>
+                <ul>
+                    <li><span class="highlight">Tecnologias:</span> Next.js, Node.js, Express, Prisma e MongoDB.</li>
+                </ul>
+            </div>
+
+            <div class="timeline-item">
+                <span class="job-title">Calculadora Financeira Backend (Fórmula de Graham)</span>
+                <p>Sistema desenvolvido em Node.js focado no mercado financeiro para calcular e estimar o valor intrínseco de ações listadas na bolsa de valores brasileira.</p>
+            </div>
+
+            <div class="timeline-item">
+                <span class="job-title">Dashboard Analítico em Power BI</span>
+                <p>Limpeza, transformação e visualização interativa de um vasto conjunto de dados referente a vendas globais de videogames.</p>
+            </div>
         </section>
 
         <section>
             <h2>Habilidades e Conhecimentos</h2>
-            <p style="text-align: center; color: #adb5bd; font-size: 0.9rem;">(Clique nas tecnologias para ver os detalhes)</p>
+            
+            <!-- FAIXA ANIMADA COM TODAS AS TECNOLOGIAS -->
+            <div class="marquee-container">
+                <div class="marquee-content">
+                    <!-- Lista Duplicada para criar o efeito infinito -->
+                    <span class="marquee-item">Java</span>
+                    <span class="marquee-item">Python</span>
+                    <span class="marquee-item">TypeScript</span>
+                    <span class="marquee-item">Node.js</span>
+                    <span class="marquee-item">Next.js</span>
+                    <span class="marquee-item">Prisma</span>
+                    <span class="marquee-item">MongoDB</span>
+                    <span class="marquee-item">Power BI</span>
+                    <span class="marquee-item">Linux / Ubuntu</span>
+                    <span class="marquee-item">HTML5</span>
+                    <span class="marquee-item">CSS3</span>
+                    <span class="marquee-item">JavaScript</span>
+                    <span class="marquee-item">Apache Cordova</span>
+                    
+                    <!-- Cópia exata para rolagem contínua -->
+                    <span class="marquee-item">Java</span>
+                    <span class="marquee-item">Python</span>
+                    <span class="marquee-item">TypeScript</span>
+                    <span class="marquee-item">Node.js</span>
+                    <span class="marquee-item">Next.js</span>
+                    <span class="marquee-item">Prisma</span>
+                    <span class="marquee-item">MongoDB</span>
+                    <span class="marquee-item">Power BI</span>
+                    <span class="marquee-item">Linux / Ubuntu</span>
+                    <span class="marquee-item">HTML5</span>
+                    <span class="marquee-item">CSS3</span>
+                    <span class="marquee-item">JavaScript</span>
+                    <span class="marquee-item">Apache Cordova</span>
+                </div>
+            </div>
+
+            <p style="text-align: center; color: var(--text-muted); font-size: 0.9rem; margin-bottom: 20px;">
+                (Clique nos ícones abaixo para visualizar os detalhes técnicos)
+            </p>
+            
             <div class="skills-grid">
-                <!-- Cards de Habilidades -->
                 <div class="skill-card" onclick="abrirDetalhes('Java')">
                     <img src="java.png" alt="Java">
                     <p>Java</p>
@@ -190,14 +331,44 @@
 
         <section>
             <h2>Experiência Profissional</h2>
-            <ul>
-                <li>
-                    <span class="job-title">PROATI</span> - <span class="company">Instituição de Ensino (Atual)</span>
-                    <p>Atuação no suporte técnico e administrativo de TI, auxiliando na configuração, manutenção de hardware institucional e rotinas de laboratório.</p>
-                </li>
-            </ul>
+            <div class="timeline-item">
+                <span class="job-title">PROATI (Programa de Aprendizagem Técnica em TI)</span>
+                <span class="company">Instituição de Ensino (Atual)</span>
+                <p>Atuação direta no suporte técnico e administrativo de TI da escola. Responsável por auxiliar na configuração, atualização de softwares, manutenção preventiva e corretiva de hardware institucional e organização das rotinas de laboratório.</p>
+            </div>
         </section>
+
+        <section>
+            <h2>Cursos Extracurriculares</h2>
+            <div class="courses-grid">
+                <div class="course-card">
+                    <h4>Projetos de Sistemas de TI</h4>
+                    <p>Fundação Bradesco</p>
+                </div>
+                <div class="course-card">
+                    <h4>Ética no Desenvolvimento</h4>
+                    <p>Fundação Bradesco</p>
+                </div>
+                <div class="course-card">
+                    <h4>Linguagem UML</h4>
+                    <p>Fundação Bradesco</p>
+                </div>
+                <div class="course-card">
+                    <h4>Gestão de Projetos</h4>
+                    <p>Fundação Bradesco</p>
+                </div>
+                <div class="course-card">
+                    <h4>Inglês Intermediário</h4>
+                    <p>Allianz</p>
+                </div>
+            </div>
+        </section>
+        
     </div>
+
+    <footer>
+        &copy; 2026 Vitor Faccini da Cruz Morais. Desenvolvido e hospedado em NGINX / Microsoft Azure.
+    </footer>
 
     <!-- JANELA MODAL (ESCONDIDA POR PADRÃO) -->
     <div id="janela-modal" class="modal">
@@ -211,26 +382,32 @@
     <script>
         // Banco de dados com os resumos das linguagens
         const descricoes = {
-            'Java': 'Linguagem orientada a objetos poderosa, robusta e muito utilizada no mercado corporativo para construção de APIs sólidas e desenvolvimento backend.',
+            'Java': 'Linguagem orientada a objetos poderosa, robusta e muito utilizada no mercado corporativo para construção de APIs sólidas e desenvolvimento backend escalável.',
             'Python': 'Linguagem de sintaxe clara e versátil. Excelente para análise de dados, inteligência artificial, automação e desenvolvimento de servidores backend.',
             'TypeScript': 'Um superconjunto do JavaScript que adiciona tipagem estática. Ajuda a prevenir erros durante o desenvolvimento e torna o código muito mais escalável.',
-            'Node.js': 'Ambiente de execução Javascript no servidor. Permite criar aplicações de rede rápidas e escaláveis. Frequentemente utilizado junto com o Express.',
-            'Next.js': 'Framework React para web full-stack. Traz recursos modernos como Renderização no Servidor (SSR) e Geração de Sites Estáticos (SSG) para alta performance.',
-            'Prisma / MongoDB': 'MongoDB é um banco NoSQL flexível e orientado a documentos. O Prisma atua como um ORM moderno e tipado que facilita e agiliza as consultas ao banco de dados.',
-            'Power BI': 'Plataforma líder para análise e inteligência de negócios (Business Intelligence). Permite criar relatórios dinâmicos e dashboards interativos com dados complexos.',
-            'Linux': 'Sistema operacional base para a grande maioria dos servidores do mundo. Experiência essencial em Ubuntu para configurações de rede, deploy e ferramentas como Nginx e SSH.'
+            'Node.js': 'Ambiente de execução Javascript no servidor. Permite criar aplicações de rede rápidas e escaláveis. Frequentemente utilizado em conjunto com o framework Express.',
+            'Next.js': 'Framework React para web full-stack. Traz recursos modernos como Renderização no Servidor (SSR) e Geração de Sites Estáticos (SSG) para altíssima performance.',
+            'Prisma / MongoDB': 'MongoDB é um banco NoSQL flexível e orientado a documentos. O Prisma atua como um ORM moderno e rigorosamente tipado, facilitando consultas complexas.',
+            'Power BI': 'Plataforma líder da Microsoft para Business Intelligence. Utilizada para estruturar dados, criar relatórios dinâmicos e dashboards gerenciais interativos.',
+            'Linux': 'Sistema operacional base para infraestrutura de nuvem global. Conhecimento sólido em linha de comando Ubuntu para configuração de firewall (UFW), SSH, SCP e servidores web (NGINX).'
         };
 
-        // Função para abrir a janela modal
         function abrirDetalhes(tecnologia) {
             document.getElementById('modal-titulo').innerText = tecnologia;
             document.getElementById('modal-descricao').innerText = descricoes[tecnologia];
             document.getElementById('janela-modal').style.display = 'flex';
         }
 
-        // Função para fechar a janela modal
         function fecharDetalhes() {
             document.getElementById('janela-modal').style.display = 'none';
+        }
+
+        // Fechar janela clicando fora dela
+        window.onclick = function(event) {
+            const modal = document.getElementById('janela-modal');
+            if (event.target === modal) {
+                fecharDetalhes();
+            }
         }
     </script>
 </body>

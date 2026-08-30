@@ -3,412 +3,744 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>Portfólio - Vitor Faccini da Cruz Morais</title>
+    <meta name="description" content="Portfólio profissional de Vitor Morais, Desenvolvedor de Software Multiplataforma.">
+    <meta name="theme-color" content="#0b1020">
+    <title>Vitor Morais | Portfólio</title>
     <style>
-        /* TEMA ESCURO E CONFIGURAÇÕES GERAIS */
         :root {
-            --primary-color: #3498db;
-            --secondary-color: #4dabf7;
-            --bg-dark: #121212;
-            --bg-card: #1e1e1e;
-            --text-light: #e0e0e0;
-            --text-muted: #adb5bd;
+            --bg: #070b14;
+            --surface: #0d1424;
+            --surface-2: #111a2d;
+            --surface-3: #17223a;
+            --text: #f5f7fb;
+            --muted: #a9b4c7;
+            --accent: #4da3ff;
+            --accent-2: #79bdff;
+            --border: rgba(255,255,255,.09);
+            --shadow: 0 24px 70px rgba(0,0,0,.34);
+            --radius: 20px;
+            --max: 1180px;
         }
 
-        body { 
-            font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif; 
-            background-color: var(--bg-dark); 
-            color: var(--text-light); 
-            margin: 0; 
-            padding: 0; 
-            line-height: 1.6;
-        }
-        
-        /* CABEÇALHO (HEADER) */
-        header { 
-            background: linear-gradient(135deg, #1a1a1a 0%, #0d0d0d 100%);
-            padding: 4rem 0 3rem 0; 
-            text-align: center; 
-            border-bottom: 3px solid var(--primary-color);
-        }
-        .profile-img { 
-            width: 180px; 
-            height: 180px; 
-            border-radius: 50%; 
-            object-fit: cover; 
-            border: 4px solid var(--primary-color); 
-            box-shadow: 0 4px 20px rgba(52, 152, 219, 0.4); 
-            margin-top: -120px; 
-            transition: transform 0.4s ease, box-shadow 0.4s ease;
-        }
-        .profile-img:hover {
-            transform: scale(1.10); 
-            box-shadow: 0 8px 30px rgba(52, 152, 219, 0.7);
-        }
-        h1 { margin: 15px 0 5px 0; font-size: 2.5rem; color: #ffffff; letter-spacing: 1px; }
-        .subtitle { color: var(--secondary-color); font-size: 1.2rem; font-weight: 600; margin-bottom: 15px; }
-        .contact-info { color: var(--text-muted); font-size: 0.95rem; display: flex; justify-content: center; gap: 20px; flex-wrap: wrap; }
-        .contact-info span { display: flex; align-items: center; gap: 5px; }
-
-        /* CONTAINER PRINCIPAL */
-        .container { 
-            width: 85%; 
-            max-width: 1000px; 
-            margin: -30px auto 40px auto; /* Sobe um pouco sobre o header */
-            background: var(--bg-card); 
-            padding: 40px; 
-            box-shadow: 0 10px 30px rgba(0,0,0,0.7); 
-            border-radius: 12px; 
-            position: relative;
-            z-index: 10;
+        * { box-sizing: border-box; }
+        html { scroll-behavior: smooth; }
+        body {
+            margin: 0;
+            font-family: Inter, ui-sans-serif, -apple-system, BlinkMacSystemFont, "Segoe UI", Roboto, Arial, sans-serif;
+            color: var(--text);
+            background:
+                radial-gradient(circle at 15% 0%, rgba(77,163,255,.14), transparent 28%),
+                radial-gradient(circle at 90% 10%, rgba(121,189,255,.08), transparent 24%),
+                var(--bg);
+            line-height: 1.65;
         }
 
-        section { margin-bottom: 40px; }
-        h2 { 
-            color: var(--secondary-color); 
-            border-bottom: 2px solid #333; 
-            padding-bottom: 8px; 
-            margin-top: 0;
-            font-size: 1.6rem;
-            display: inline-block;
+        a { color: inherit; text-decoration: none; }
+        img { max-width: 100%; display: block; }
+        button, a { -webkit-tap-highlight-color: transparent; }
+        ::selection { background: rgba(77,163,255,.28); }
+
+        .page-shell {
+            width: min(var(--max), calc(100% - 36px));
+            margin: 0 auto;
         }
 
-        /* LISTAS E TEXTOS */
-        ul { padding-left: 20px; }
-        li { margin-bottom: 12px; }
-        .highlight { color: var(--secondary-color); font-weight: bold; }
-        
-        .timeline-item { margin-bottom: 25px; border-left: 2px solid #333; padding-left: 20px; position: relative; }
-        .timeline-item::before {
-            content: ''; position: absolute; left: -6px; top: 5px; width: 10px; height: 10px;
-            background: var(--primary-color); border-radius: 50%;
+        .topbar {
+            position: sticky;
+            top: 0;
+            z-index: 50;
+            backdrop-filter: blur(16px);
+            background: rgba(7,11,20,.78);
+            border-bottom: 1px solid var(--border);
         }
-        .job-title { font-weight: bold; font-size: 1.15rem; color: #ffffff; }
-        .company { color: var(--secondary-color); font-style: italic; font-size: 0.95rem; display: block; margin-bottom: 5px; }
-        .date { color: var(--text-muted); font-size: 0.85rem; }
 
-        /* FAIXA ROTATIVA (MARQUEE) DE TECNOLOGIAS */
-        .marquee-container {
-            width: 100%;
-            overflow: hidden;
-            background: #111;
-            padding: 15px 0;
-            border-radius: 8px;
-            margin-bottom: 30px;
-            box-shadow: inset 0 0 10px rgba(0,0,0,0.5);
-            display: flex;
-        }
-        .marquee-content {
-            display: flex;
-            white-space: nowrap;
-            animation: scroll 20s linear infinite;
-        }
-        .marquee-content:hover { animation-play-state: paused; } /* Pausa ao passar o mouse */
-        .marquee-item {
-            font-size: 1.1rem;
-            font-weight: 600;
-            color: #fff;
-            padding: 0 30px;
-            text-transform: uppercase;
-            letter-spacing: 2px;
+        .topbar-inner {
+            min-height: 70px;
             display: flex;
             align-items: center;
-        }
-        .marquee-item::after {
-            content: '•';
-            color: var(--primary-color);
-            margin-left: 30px;
-        }
-        @keyframes scroll {
-            0% { transform: translateX(0); }
-            100% { transform: translateX(-50%); } /* Rola até a metade (conteúdo duplicado) */
+            justify-content: space-between;
+            gap: 24px;
         }
 
-        /* GRID DE HABILIDADES (CARDS) */
-        .skills-grid {
-            display: flex; flex-wrap: wrap; gap: 20px; justify-content: center;
-        }
-        .skill-card {
-            background: #2a2a2a; border: 1px solid #333; border-radius: 10px;
-            padding: 15px; width: 120px; text-align: center; cursor: pointer;
-            transition: transform 0.3s ease, background 0.3s ease, border-color 0.3s ease;
-        }
-        .skill-card img {
-            max-width: 100%; height: 50px; object-fit: contain; margin-bottom: 10px; pointer-events: none;
-        }
-        .skill-card p { margin: 0; font-size: 0.9rem; font-weight: bold; color: #ddd; }
-        .skill-card:hover {
-            transform: translateY(-8px); background: #333; border-color: var(--secondary-color);
-            box-shadow: 0 5px 15px rgba(52, 152, 219, 0.2);
+        .brand {
+            display: flex;
+            align-items: center;
+            gap: 12px;
+            font-weight: 800;
+            letter-spacing: .06em;
+            text-transform: uppercase;
+            font-size: .84rem;
         }
 
-        /* GRID DE CURSOS */
-        .courses-grid {
-            display: grid; grid-template-columns: repeat(auto-fit, minmax(250px, 1fr)); gap: 15px;
+        .brand-mark {
+            width: 34px;
+            height: 34px;
+            border-radius: 10px;
+            display: grid;
+            place-items: center;
+            color: #08101e;
+            background: linear-gradient(135deg, var(--accent-2), var(--accent));
+            font-weight: 900;
+            box-shadow: 0 8px 26px rgba(77,163,255,.23);
         }
-        .course-card {
-            background: #252525; padding: 15px; border-radius: 8px; border-left: 3px solid var(--primary-color);
-        }
-        .course-card h4 { margin: 0 0 5px 0; color: #fff; font-size: 1rem; }
-        .course-card p { margin: 0; color: var(--text-muted); font-size: 0.85rem; }
 
-        /* JANELA MODAL (POP-UP) */
-        .modal {
-            display: none; position: fixed; top: 0; left: 0; width: 100%; height: 100%; 
-            background: rgba(0,0,0,0.85); justify-content: center; align-items: center; z-index: 1000;
-            backdrop-filter: blur(5px);
+        .nav {
+            display: flex;
+            flex-wrap: wrap;
+            justify-content: flex-end;
+            gap: 5px;
         }
-        .modal-content {
-            background: #1e1e1e; padding: 40px; border-radius: 12px; max-width: 500px; width: 90%;
-            text-align: center; border: 1px solid var(--primary-color);
-            box-shadow: 0 10px 40px rgba(52, 152, 219, 0.4);
+
+        .nav a {
+            padding: 10px 12px;
+            border-radius: 9px;
+            color: var(--muted);
+            font-size: .87rem;
+            transition: .2s ease;
+        }
+
+        .nav a:hover { color: var(--text); background: rgba(255,255,255,.05); }
+
+        .hero {
+            display: grid;
+            grid-template-columns: 1.15fr .85fr;
+            gap: 38px;
+            align-items: center;
+            padding: 76px 0 54px;
+            min-height: 640px;
+        }
+
+        .eyebrow {
+            display: inline-flex;
+            align-items: center;
+            gap: 8px;
+            color: var(--accent-2);
+            font-size: .78rem;
+            font-weight: 800;
+            text-transform: uppercase;
+            letter-spacing: .14em;
+            margin-bottom: 15px;
+        }
+
+        .eyebrow::before {
+            content: "";
+            width: 24px;
+            height: 2px;
+            background: var(--accent);
+            border-radius: 10px;
+        }
+
+        h1 {
+            margin: 0;
+            font-size: clamp(3.3rem, 8vw, 6.2rem);
+            line-height: .93;
+            letter-spacing: -.055em;
+        }
+
+        .hero-role {
+            margin: 20px 0 0;
+            color: var(--accent-2);
+            font-size: clamp(1.1rem, 2vw, 1.45rem);
+            font-weight: 700;
+        }
+
+        .hero-copy {
+            max-width: 700px;
+            margin: 18px 0 0;
+            color: var(--muted);
+            font-size: 1.04rem;
+        }
+
+        .hero-actions {
+            display: flex;
+            flex-wrap: wrap;
+            gap: 12px;
+            margin-top: 28px;
+        }
+
+        .btn {
+            display: inline-flex;
+            align-items: center;
+            justify-content: center;
+            gap: 9px;
+            padding: 12px 17px;
+            border-radius: 11px;
+            border: 1px solid var(--border);
+            font-weight: 800;
+            font-size: .9rem;
+            transition: transform .2s ease, border-color .2s ease, background .2s ease;
+        }
+
+        .btn:hover { transform: translateY(-2px); border-color: rgba(77,163,255,.5); }
+        .btn-primary { color: #07101e; background: linear-gradient(135deg, var(--accent-2), var(--accent)); border-color: transparent; }
+        .btn-secondary { background: rgba(255,255,255,.035); color: var(--text); }
+
+        .contact-strip {
+            display: flex;
+            flex-wrap: wrap;
+            gap: 16px 22px;
+            margin-top: 28px;
+            color: var(--muted);
+            font-size: .88rem;
+        }
+
+        .contact-strip span { display: inline-flex; align-items: center; gap: 7px; }
+        .contact-strip strong { color: var(--text); font-weight: 650; }
+
+        .hero-card {
             position: relative;
+            padding: 26px;
+            border: 1px solid var(--border);
+            border-radius: 28px;
+            background: linear-gradient(180deg, rgba(255,255,255,.045), rgba(255,255,255,.02));
+            box-shadow: var(--shadow);
+            overflow: hidden;
         }
-        .modal-content h3 { color: var(--secondary-color); font-size: 2rem; margin-top: 0; }
-        .modal-content p { font-size: 1.1rem; line-height: 1.6; color: #ccc; }
-        .close-btn {
-            background: #e74c3c; color: white; border: none; padding: 10px 25px; border-radius: 5px;
-            cursor: pointer; font-size: 1rem; font-weight: bold; margin-top: 25px;
-            transition: background 0.3s ease; text-transform: uppercase; letter-spacing: 1px;
+
+        .hero-card::before {
+            content: "";
+            position: absolute;
+            width: 180px;
+            height: 180px;
+            right: -50px;
+            top: -50px;
+            border-radius: 50%;
+            background: rgba(77,163,255,.12);
+            filter: blur(4px);
         }
-        .close-btn:hover { background: #c0392b; }
 
-        /* RODAPÉ */
-        footer { text-align: center; padding: 20px 0; color: var(--text-muted); font-size: 0.9rem; border-top: 1px solid #333; }
+        .photo-frame {
+            border-radius: 22px;
+            padding: 8px;
+            background: linear-gradient(145deg, rgba(121,189,255,.42), rgba(77,163,255,.08));
+            border: 1px solid rgba(121,189,255,.3);
+        }
 
-        /* RESPONSIVIDADE */
-        @media (max-width: 768px) {
-            .container { width: 95%; padding: 25px; }
-            h1 { font-size: 2rem; }
-            .profile-img { width: 150px; height: 150px; margin-top: -100px; }
+        .photo-frame img {
+            width: 100%;
+            aspect-ratio: 1 / 1.05;
+            object-fit: cover;
+            object-position: center 25%;
+            border-radius: 16px;
+            background: #0b1020;
+        }
+
+        .status {
+            display: flex;
+            align-items: center;
+            gap: 10px;
+            margin-top: 16px;
+            color: var(--muted);
+            font-size: .86rem;
+        }
+
+        .status-dot {
+            width: 9px;
+            height: 9px;
+            border-radius: 50%;
+            background: #5de28d;
+            box-shadow: 0 0 0 5px rgba(93,226,141,.08);
+        }
+
+        section { padding: 58px 0; scroll-margin-top: 90px; }
+        .section-head { max-width: 720px; margin-bottom: 28px; }
+        .section-kicker {
+            color: var(--accent-2);
+            text-transform: uppercase;
+            letter-spacing: .14em;
+            font-size: .76rem;
+            font-weight: 850;
+        }
+        h2 {
+            margin: 7px 0 10px;
+            font-size: clamp(2rem, 4vw, 3rem);
+            line-height: 1.05;
+            letter-spacing: -.035em;
+        }
+        .section-head p { margin: 0; color: var(--muted); }
+
+        .summary-grid {
+            display: grid;
+            grid-template-columns: repeat(3, 1fr);
+            gap: 16px;
+        }
+
+        .mini-card, .panel, .project-card, .course-card {
+            border: 1px solid var(--border);
+            background: rgba(255,255,255,.025);
+            border-radius: var(--radius);
+        }
+
+        .mini-card { padding: 22px; }
+        .mini-card .num { font-size: 1.8rem; font-weight: 900; color: var(--accent-2); }
+        .mini-card strong { display: block; margin-top: 3px; }
+        .mini-card p { margin: 6px 0 0; color: var(--muted); font-size: .9rem; }
+
+        .project-grid {
+            display: grid;
+            grid-template-columns: repeat(2, 1fr);
+            gap: 18px;
+        }
+
+        .project-card {
+            padding: 24px;
+            position: relative;
+            overflow: hidden;
+            transition: transform .2s ease, border-color .2s ease;
+        }
+
+        .project-card:hover { transform: translateY(-3px); border-color: rgba(77,163,255,.35); }
+        .project-card::after {
+            content: "";
+            position: absolute;
+            width: 120px;
+            height: 120px;
+            top: -70px;
+            right: -60px;
+            border-radius: 50%;
+            background: rgba(77,163,255,.07);
+        }
+
+        .project-index {
+            color: var(--accent);
+            font-weight: 900;
+            font-size: .8rem;
+            letter-spacing: .12em;
+        }
+        .project-card h3 { margin: 8px 0 7px; font-size: 1.25rem; }
+        .project-card p { margin: 0; color: var(--muted); }
+        .tag-row { display: flex; flex-wrap: wrap; gap: 8px; margin-top: 16px; }
+        .tag {
+            padding: 6px 9px;
+            border-radius: 999px;
+            background: rgba(77,163,255,.08);
+            border: 1px solid rgba(77,163,255,.18);
+            color: #c9e3ff;
+            font-size: .75rem;
+            font-weight: 750;
+        }
+
+        .two-col { display: grid; grid-template-columns: 1fr 1fr; gap: 18px; }
+        .panel { padding: 25px; }
+        .panel h3 { margin: 0 0 17px; font-size: 1.15rem; }
+
+        .skill-group + .skill-group { margin-top: 24px; }
+        .skill-label { display: flex; justify-content: space-between; gap: 15px; margin-bottom: 9px; font-size: .87rem; }
+        .skill-label span:last-child { color: var(--muted); font-size: .76rem; }
+        .skill-bar { height: 7px; background: #1a2539; border-radius: 99px; overflow: hidden; }
+        .skill-bar span { display: block; height: 100%; border-radius: inherit; background: linear-gradient(90deg, var(--accent), var(--accent-2)); }
+
+        .knowledge-grid {
+            display: grid;
+            grid-template-columns: repeat(4, 1fr);
+            gap: 15px;
+        }
+
+        .knowledge-card {
+            padding: 17px;
+            border: 1px solid var(--border);
+            border-radius: 17px;
+            background: rgba(255,255,255,.024);
+        }
+        .knowledge-card small { color: var(--accent-2); text-transform: uppercase; letter-spacing: .08em; font-weight: 850; font-size: .68rem; }
+        .knowledge-card h3 { margin: 7px 0 9px; font-size: 1rem; }
+        .knowledge-card p { margin: 0; color: var(--muted); font-size: .84rem; }
+
+        .tech-list {
+            display: grid;
+            grid-template-columns: repeat(4, 1fr);
+            gap: 13px;
+        }
+
+        .tech {
+            min-height: 110px;
+            display: flex;
+            flex-direction: column;
+            align-items: center;
+            justify-content: center;
+            gap: 10px;
+            padding: 14px;
+            border: 1px solid var(--border);
+            border-radius: 17px;
+            background: rgba(255,255,255,.022);
+            transition: .2s ease;
+        }
+        .tech:hover { border-color: rgba(77,163,255,.34); transform: translateY(-2px); }
+        .tech img { width: 42px; height: 42px; object-fit: contain; }
+        .tech b { font-size: .82rem; }
+
+        .timeline { position: relative; padding-left: 26px; }
+        .timeline::before { content: ""; position: absolute; top: 5px; bottom: 5px; left: 5px; width: 1px; background: #27344b; }
+        .timeline-item { position: relative; padding: 0 0 28px 18px; }
+        .timeline-item:last-child { padding-bottom: 0; }
+        .timeline-item::before {
+            content: "";
+            position: absolute;
+            left: -2px;
+            top: 5px;
+            width: 13px;
+            height: 13px;
+            border-radius: 50%;
+            border: 3px solid var(--bg);
+            background: var(--accent);
+            box-shadow: 0 0 0 1px rgba(77,163,255,.36);
+        }
+        .timeline-meta { color: var(--accent-2); font-size: .77rem; font-weight: 800; text-transform: uppercase; letter-spacing: .08em; }
+        .timeline-item h3 { margin: 4px 0 3px; font-size: 1.06rem; }
+        .timeline-item .org { color: var(--muted); font-size: .88rem; }
+        .timeline-item p { margin: 8px 0 0; color: var(--muted); font-size: .9rem; }
+
+        .course-grid { display: grid; grid-template-columns: repeat(2,1fr); gap: 13px; }
+        .course-card { padding: 18px; }
+        .course-card h3 { margin: 0 0 5px; font-size: .98rem; }
+        .course-card p { margin: 0; color: var(--muted); font-size: .82rem; }
+
+        .experience-card {
+            display: grid;
+            grid-template-columns: auto 1fr;
+            gap: 18px;
+            align-items: start;
+            padding: 24px;
+            border: 1px solid var(--border);
+            border-radius: var(--radius);
+            background: linear-gradient(135deg, rgba(77,163,255,.07), rgba(255,255,255,.02));
+        }
+        .experience-icon {
+            width: 46px;
+            height: 46px;
+            border-radius: 14px;
+            display: grid;
+            place-items: center;
+            background: rgba(77,163,255,.1);
+            border: 1px solid rgba(77,163,255,.2);
+            color: var(--accent-2);
+            font-weight: 900;
+        }
+        .experience-card h3 { margin: 0 0 5px; }
+        .experience-card p { margin: 0; color: var(--muted); }
+
+        .cta {
+            margin: 25px 0 70px;
+            padding: 34px;
+            border-radius: 25px;
+            border: 1px solid rgba(77,163,255,.23);
+            background: linear-gradient(135deg, rgba(77,163,255,.10), rgba(255,255,255,.03));
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+            gap: 20px;
+        }
+        .cta h2 { margin: 0 0 7px; font-size: 2rem; }
+        .cta p { margin: 0; color: var(--muted); }
+
+        footer { border-top: 1px solid var(--border); color: var(--muted); padding: 24px 0 35px; font-size: .82rem; }
+        .footer-inner { display: flex; justify-content: space-between; gap: 20px; flex-wrap: wrap; }
+
+        .reveal { opacity: 0; transform: translateY(18px); transition: opacity .7s ease, transform .7s ease; }
+        .reveal.visible { opacity: 1; transform: none; }
+
+        @media (max-width: 980px) {
+            .hero { grid-template-columns: 1fr; padding-top: 55px; }
+            .hero-card { max-width: 520px; }
+            .summary-grid, .knowledge-grid { grid-template-columns: repeat(2,1fr); }
+            .tech-list { grid-template-columns: repeat(3,1fr); }
+        }
+
+        @media (max-width: 760px) {
+            .page-shell { width: min(var(--max), calc(100% - 24px)); }
+            .topbar-inner { align-items: flex-start; padding: 11px 0; flex-direction: column; gap: 8px; }
+            .nav { width: 100%; overflow-x: auto; justify-content: flex-start; flex-wrap: nowrap; padding-bottom: 2px; }
+            .nav a { white-space: nowrap; }
+            .project-grid, .two-col, .course-grid { grid-template-columns: 1fr; }
+            .tech-list { grid-template-columns: repeat(2,1fr); }
+            section { padding: 44px 0; }
+            .hero { min-height: auto; }
+            .hero-card { justify-self: stretch; }
+            .cta { flex-direction: column; align-items: flex-start; }
+        }
+
+        @media (max-width: 520px) {
+            .summary-grid, .knowledge-grid { grid-template-columns: 1fr; }
+            .tech-list { grid-template-columns: repeat(2,1fr); }
+            .contact-strip { flex-direction: column; gap: 8px; }
+            h1 { font-size: 3.3rem; }
+            .hero-actions { flex-direction: column; align-items: stretch; }
+            .btn { width: 100%; }
+        }
+
+        @media print {
+            body { background: #fff; color: #111; }
+            .topbar, .hero-actions, .cta, .status { display: none !important; }
+            .hero { min-height: auto; padding: 20px 0; }
+            .hero-card, .mini-card, .panel, .project-card, .course-card, .knowledge-card, .tech, .experience-card { box-shadow: none; background: #fff; border-color: #ddd; }
+            .muted, .section-head p, .hero-copy, .mini-card p, .project-card p, .knowledge-card p, .timeline-item p, .course-card p, .experience-card p, .contact-strip { color: #444 !important; }
+            section { padding: 22px 0; break-inside: avoid; }
         }
     </style>
 </head>
 <body>
-
-    <header>
-        <img src="foto.jpeg" alt="Vitor Faccini da Cruz Morais" class="profile-img">
-        <h1>VITOR MORAIS</h1>
-        <div class="subtitle">Desenvolvedor de Softwares Multiplataforma (DSM)</div>
-        <div class="contact-info">
-            <span>📱 (16) 97402-5140</span>
-            <span>✉️ vitorfaccini93@gmail.com</span>
-            <span>📍 Ribeirão Corrente - São Paulo</span>
+    <header class="topbar">
+        <div class="page-shell topbar-inner">
+            <a class="brand" href="#inicio" aria-label="Voltar ao início">
+                <span class="brand-mark">V</span>
+                <span>Vitor Morais</span>
+            </a>
+            <nav class="nav" aria-label="Navegação principal">
+                <a href="#sobre">Sobre</a>
+                <a href="#projetos">Projetos</a>
+                <a href="#habilidades">Habilidades</a>
+                <a href="#conhecimentos">Conhecimentos</a>
+                <a href="#formacao">Formação</a>
+                <a href="#contato">Contato</a>
+            </nav>
         </div>
     </header>
 
-    <div class="container">
-        
-        <section>
-            <h2>Objetivo Profissional</h2>
-            <p>Busco uma oportunidade como estagiário, onde eu possa aplicar meus conhecimentos adquiridos no curso técnico em Desenvolvimento de Sistemas e na faculdade tecnóloga de Desenvolvimento de Software Multiplataforma (DSM). Tenho forte facilidade com tecnologia, boa comunicação, e estou altamente disposto a aprender e crescer profissionalmente contribuindo com a equipe para o desenvolvimento de soluções inovadoras.</p>
+    <main id="inicio" class="page-shell">
+        <section class="hero reveal">
+            <div>
+                <div class="eyebrow">Portfólio profissional</div>
+                <h1>Vitor<br>Morais</h1>
+                <p class="hero-role">Desenvolvedor de Software Multiplataforma</p>
+                <p class="hero-copy">Estudante de Desenvolvimento de Software Multiplataforma (DSM), com formação técnica em Desenvolvimento de Sistemas e foco na construção de soluções web, APIs, dados e aplicações multiplataforma.</p>
+                <div class="hero-actions">
+                    <a class="btn btn-primary" href="#projetos">Ver projetos</a>
+                    <a class="btn btn-secondary" href="#contato">Entrar em contato</a>
+                </div>
+                <div class="contact-strip">
+                    <span>📍 <strong>Ribeirão Corrente — SP</strong></span>
+                    <span>✉️ <strong>vitorfaccini93@gmail.com</strong></span>
+                    <span>📱 <strong>(16) 97402-5140</strong></span>
+                </div>
+            </div>
+
+            <aside class="hero-card">
+                <div class="photo-frame">
+                    <img src="foto.jpeg" alt="Foto profissional de Vitor Morais" loading="eager">
+                </div>
+                <div class="status">
+                    <span class="status-dot" aria-hidden="true"></span>
+                    Disponível para oportunidade de estágio em tecnologia
+                </div>
+            </aside>
         </section>
 
-        <section>
-            <h2>Formação Acadêmica</h2>
-            <div class="timeline-item">
-                <span class="job-title">Desenvolvimento de Software Multiplataforma</span>
-                <span class="company">Faculdade de Tecnologia do Estado de São Paulo (FATEC)</span>
-                <span class="date">2025 - 2027</span>
+        <section id="sobre" class="reveal">
+            <div class="section-head">
+                <div class="section-kicker">01 · Perfil</div>
+                <h2>Profissional em formação, orientado a soluções.</h2>
+                <p>Minha trajetória combina formação técnica, graduação e desenvolvimento de projetos práticos. Busco transformar problemas em soluções funcionais, organizadas e com boa experiência de uso.</p>
             </div>
-            <div class="timeline-item">
-                <span class="job-title">Ensino Médio Integrado com Desenvolvimento de Sistemas</span>
-                <span class="company">Escola Técnica Estadual de São Paulo (ETEC)</span>
-                <span class="date">2022 - 2024</span>
-            </div>
-        </section>
-
-        <section>
-            <h2>Projetos e Atividades de Destaque</h2>
-            
-            <div class="timeline-item">
-                <span class="job-title">PULMON – Aplicativo de Suporte a Portadores de Câncer de Pulmão</span>
-                <span class="company">Projeto de TCC | ETEC, 2024</span>
-                <p>Desenvolvimento de um aplicativo mobile com objetivo de oferecer informações, suporte e auxílio a pessoas diagnosticadas com câncer de pulmão. Foco em acessibilidade, usabilidade e empatia.</p>
-                <ul>
-                    <li><span class="highlight">Funcionalidades:</span> Agenda de consultas e medicamentos, dicas de bem-estar, alimentação e orientação visual de posições ideais para dormir.</li>
-                    <li><span class="highlight">Tecnologias:</span> Visual Studio Code, HTML, CSS, JavaScript, Cordova (para compilação em dispositivos Android).</li>
-                    <li>Projeto apresentado com destaque pela relevância social e viabilidade técnica.</li>
-                </ul>
-            </div>
-
-            <div class="timeline-item">
-                <span class="job-title">Sistema Integrado de Gestão de Restaurantes</span>
-                <p>Desenvolvimento completo de API e interface frontend com foco em alta performance e escalabilidade.</p>
-                <ul>
-                    <li><span class="highlight">Tecnologias:</span> Next.js, Node.js, Express, Prisma e MongoDB.</li>
-                </ul>
-            </div>
-
-            <div class="timeline-item">
-                <span class="job-title">Calculadora Financeira Backend (Fórmula de Graham)</span>
-                <p>Sistema desenvolvido em Node.js focado no mercado financeiro para calcular e estimar o valor intrínseco de ações listadas na bolsa de valores brasileira.</p>
-            </div>
-
-            <div class="timeline-item">
-                <span class="job-title">Dashboard Analítico em Power BI</span>
-                <p>Limpeza, transformação e visualização interativa de um vasto conjunto de dados referente a vendas globais de videogames.</p>
-            </div>
-        </section>
-
-        <section>
-            <h2>Habilidades e Conhecimentos</h2>
-            
-            <!-- FAIXA ANIMADA COM TODAS AS TECNOLOGIAS -->
-            <div class="marquee-container">
-                <div class="marquee-content">
-                    <!-- Lista Duplicada para criar o efeito infinito -->
-                    <span class="marquee-item">Java</span>
-                    <span class="marquee-item">Python</span>
-                    <span class="marquee-item">TypeScript</span>
-                    <span class="marquee-item">Node.js</span>
-                    <span class="marquee-item">Next.js</span>
-                    <span class="marquee-item">Prisma</span>
-                    <span class="marquee-item">MongoDB</span>
-                    <span class="marquee-item">Power BI</span>
-                    <span class="marquee-item">Linux / Ubuntu</span>
-                    <span class="marquee-item">HTML5</span>
-                    <span class="marquee-item">CSS3</span>
-                    <span class="marquee-item">JavaScript</span>
-                    <span class="marquee-item">Apache Cordova</span>
-                    
-                    <!-- Cópia exata para rolagem contínua -->
-                    <span class="marquee-item">Java</span>
-                    <span class="marquee-item">Python</span>
-                    <span class="marquee-item">TypeScript</span>
-                    <span class="marquee-item">Node.js</span>
-                    <span class="marquee-item">Next.js</span>
-                    <span class="marquee-item">Prisma</span>
-                    <span class="marquee-item">MongoDB</span>
-                    <span class="marquee-item">Power BI</span>
-                    <span class="marquee-item">Linux / Ubuntu</span>
-                    <span class="marquee-item">HTML5</span>
-                    <span class="marquee-item">CSS3</span>
-                    <span class="marquee-item">JavaScript</span>
-                    <span class="marquee-item">Apache Cordova</span>
-                </div>
-            </div>
-
-            <p style="text-align: center; color: var(--text-muted); font-size: 0.9rem; margin-bottom: 20px;">
-                (Clique nos ícones abaixo para visualizar os detalhes técnicos)
-            </p>
-            
-            <div class="skills-grid">
-                <div class="skill-card" onclick="abrirDetalhes('Java')">
-                    <img src="java.png" alt="Java">
-                    <p>Java</p>
-                </div>
-                <div class="skill-card" onclick="abrirDetalhes('Python')">
-                    <img src="python.png" alt="Python">
-                    <p>Python</p>
-                </div>
-                <div class="skill-card" onclick="abrirDetalhes('TypeScript')">
-                    <img src="ts.png" alt="TypeScript">
-                    <p>TypeScript</p>
-                </div>
-                <div class="skill-card" onclick="abrirDetalhes('Node.js')">
-                    <img src="node.png" alt="Node.js">
-                    <p>Node.js</p>
-                </div>
-                <div class="skill-card" onclick="abrirDetalhes('Next.js')">
-                    <img src="next.png" alt="Next.js">
-                    <p>Next.js</p>
-                </div>
-                <div class="skill-card" onclick="abrirDetalhes('Prisma / MongoDB')">
-                    <img src="mongo.png" alt="MongoDB">
-                    <p>MongoDB / Prisma</p>
-                </div>
-                <div class="skill-card" onclick="abrirDetalhes('Power BI')">
-                    <img src="power.png" alt="Power BI">
-                    <p>Power BI</p>
-                </div>
-                <div class="skill-card" onclick="abrirDetalhes('Linux')">
-                    <img src="ubunto.png" alt="Linux Ubuntu">
-                    <p>Linux / Ubuntu</p>
-                </div>
+            <div class="summary-grid">
+                <article class="mini-card">
+                    <div class="num">2025–2027</div>
+                    <strong>Graduação em DSM</strong>
+                    <p>Formação superior na FATEC com foco em desenvolvimento de software multiplataforma.</p>
+                </article>
+                <article class="mini-card">
+                    <div class="num">2022–2024</div>
+                    <strong>Formação técnica</strong>
+                    <p>Ensino Médio Integrado ao curso técnico de Desenvolvimento de Sistemas na ETEC.</p>
+                </article>
+                <article class="mini-card">
+                    <div class="num">04+</div>
+                    <strong>Projetos de destaque</strong>
+                    <p>Experiências acadêmicas envolvendo software, APIs, finanças, dados e aplicações mobile.</p>
+                </article>
             </div>
         </section>
 
-        <section>
-            <h2>Experiência Profissional</h2>
-            <div class="timeline-item">
-                <span class="job-title">PROATI (Programa de Aprendizagem Técnica em TI)</span>
-                <span class="company">Instituição de Ensino (Atual)</span>
-                <p>Atuação direta no suporte técnico e administrativo de TI da escola. Responsável por auxiliar na configuração, atualização de softwares, manutenção preventiva e corretiva de hardware institucional e organização das rotinas de laboratório.</p>
+        <section id="projetos" class="reveal">
+            <div class="section-head">
+                <div class="section-kicker">02 · Atividades de destaque</div>
+                <h2>Projetos que representam minha prática.</h2>
+                <p>Projetos acadêmicos utilizados para aplicar conceitos de desenvolvimento, arquitetura, dados, usabilidade e resolução de problemas.</p>
+            </div>
+            <div class="project-grid">
+                <article class="project-card">
+                    <div class="project-index">PROJETO 01</div>
+                    <h3>PULMON — Aplicativo de suporte</h3>
+                    <p>Aplicativo mobile criado como TCC para oferecer informações, organização de consultas e medicamentos e conteúdos de apoio a pessoas com câncer de pulmão, com atenção à acessibilidade e usabilidade.</p>
+                    <div class="tag-row">
+                        <span class="tag">HTML</span><span class="tag">CSS</span><span class="tag">JavaScript</span><span class="tag">Cordova</span>
+                    </div>
+                </article>
+                <article class="project-card">
+                    <div class="project-index">PROJETO 02</div>
+                    <h3>Sistema de Gestão de Restaurantes</h3>
+                    <p>Solução full stack voltada a gestão, com frontend e API pensados para organização, escalabilidade e integração entre camadas.</p>
+                    <div class="tag-row">
+                        <span class="tag">Next.js</span><span class="tag">Node.js</span><span class="tag">Express</span><span class="tag">Prisma</span><span class="tag">MongoDB</span>
+                    </div>
+                </article>
+                <article class="project-card">
+                    <div class="project-index">PROJETO 03</div>
+                    <h3>Calculadora Financeira — Graham</h3>
+                    <p>Backend em Node.js voltado ao mercado financeiro, com cálculo de valor intrínseco de ações a partir de indicadores fundamentalistas.</p>
+                    <div class="tag-row">
+                        <span class="tag">Node.js</span><span class="tag">APIs</span><span class="tag">JavaScript</span><span class="tag">Finanças</span>
+                    </div>
+                </article>
+                <article class="project-card">
+                    <div class="project-index">PROJETO 04</div>
+                    <h3>Dashboard Analítico em Power BI</h3>
+                    <p>Tratamento, transformação e visualização interativa de dados de vendas globais de videogames, com foco em análise e comunicação de informações.</p>
+                    <div class="tag-row">
+                        <span class="tag">Power BI</span><span class="tag">Dados</span><span class="tag">Visualização</span>
+                    </div>
+                </article>
             </div>
         </section>
 
-        <section>
-            <h2>Cursos Extracurriculares</h2>
-            <div class="courses-grid">
-                <div class="course-card">
-                    <h4>Projetos de Sistemas de TI</h4>
-                    <p>Fundação Bradesco</p>
+        <section id="habilidades" class="reveal">
+            <div class="section-head">
+                <div class="section-kicker">03 · Habilidades</div>
+                <h2>Competências que levo para cada projeto.</h2>
+            </div>
+            <div class="two-col">
+                <div class="panel">
+                    <h3>Competências técnicas</h3>
+                    <div class="skill-group">
+                        <div class="skill-label"><span>Desenvolvimento web</span><span>Front-end + Back-end</span></div>
+                        <div class="skill-bar"><span style="width:88%"></span></div>
+                    </div>
+                    <div class="skill-group">
+                        <div class="skill-label"><span>APIs e integração</span><span>Node.js / Express</span></div>
+                        <div class="skill-bar"><span style="width:84%"></span></div>
+                    </div>
+                    <div class="skill-group">
+                        <div class="skill-label"><span>Banco de dados</span><span>MongoDB / Prisma</span></div>
+                        <div class="skill-bar"><span style="width:78%"></span></div>
+                    </div>
+                    <div class="skill-group">
+                        <div class="skill-label"><span>Dados e BI</span><span>Power BI</span></div>
+                        <div class="skill-bar"><span style="width:74%"></span></div>
+                    </div>
                 </div>
-                <div class="course-card">
-                    <h4>Ética no Desenvolvimento</h4>
-                    <p>Fundação Bradesco</p>
-                </div>
-                <div class="course-card">
-                    <h4>Linguagem UML</h4>
-                    <p>Fundação Bradesco</p>
-                </div>
-                <div class="course-card">
-                    <h4>Gestão de Projetos</h4>
-                    <p>Fundação Bradesco</p>
-                </div>
-                <div class="course-card">
-                    <h4>Inglês Intermediário</h4>
-                    <p>Allianz</p>
+                <div class="panel">
+                    <h3>Competências pessoais</h3>
+                    <div class="tag-row" style="margin-top:0">
+                        <span class="tag">Comunicação</span>
+                        <span class="tag">Trabalho em equipe</span>
+                        <span class="tag">Raciocínio lógico</span>
+                        <span class="tag">Resolução de problemas</span>
+                        <span class="tag">Organização</span>
+                        <span class="tag">Aprendizado contínuo</span>
+                        <span class="tag">Proatividade</span>
+                        <span class="tag">Atenção à usabilidade</span>
+                    </div>
+                    <p style="margin:18px 0 0;color:var(--muted);font-size:.9rem">Valorizo soluções claras, código organizado e colaboração. Minha formação é acompanhada de projetos práticos para transformar conhecimento em entrega.</p>
                 </div>
             </div>
         </section>
-        
-    </div>
+
+        <section id="conhecimentos" class="reveal">
+            <div class="section-head">
+                <div class="section-kicker">04 · Conhecimentos</div>
+                <h2>Stack e tecnologias.</h2>
+                <p>Conhecimentos construídos durante a formação e aplicação em projetos acadêmicos.</p>
+            </div>
+            <div class="tech-list" aria-label="Tecnologias conhecidas">
+                <div class="tech"><img src="java.png" alt="Java"><b>Java</b></div>
+                <div class="tech"><img src="python.png" alt="Python"><b>Python</b></div>
+                <div class="tech"><img src="ts.png" alt="TypeScript"><b>TypeScript</b></div>
+                <div class="tech"><img src="node.png" alt="Node.js"><b>Node.js</b></div>
+                <div class="tech"><img src="next.png" alt="Next.js"><b>Next.js</b></div>
+                <div class="tech"><img src="mongo.png" alt="MongoDB"><b>MongoDB</b></div>
+                <div class="tech"><img src="power.png" alt="Power BI"><b>Power BI</b></div>
+                <div class="tech"><img src="ubunto.png" alt="Ubuntu / Linux"><b>Linux / Ubuntu</b></div>
+            </div>
+
+            <div class="knowledge-grid" style="margin-top:18px">
+                <article class="knowledge-card"><small>Linguagens</small><h3>JavaScript · TypeScript</h3><p>Desenvolvimento web, APIs e aplicações com foco em organização e manutenção.</p></article>
+                <article class="knowledge-card"><small>Front-end</small><h3>HTML5 · CSS3 · Next.js</h3><p>Interfaces responsivas, componentes e experiências de uso consistentes.</p></article>
+                <article class="knowledge-card"><small>Back-end</small><h3>Node.js · Express · Prisma</h3><p>APIs, regras de negócio e integração entre aplicação e persistência.</p></article>
+                <article class="knowledge-card"><small>Dados</small><h3>MongoDB · Power BI</h3><p>Persistência de dados, tratamento, análise e visualização de informações.</p></article>
+            </div>
+        </section>
+
+        <section id="formacao" class="reveal">
+            <div class="section-head">
+                <div class="section-kicker">05 · Formação</div>
+                <h2>Formação acadêmica e cursos.</h2>
+            </div>
+            <div class="two-col">
+                <div class="panel">
+                    <h3>Formação acadêmica</h3>
+                    <div class="timeline">
+                        <div class="timeline-item">
+                            <div class="timeline-meta">2025 — 2027 · Em andamento</div>
+                            <h3>Desenvolvimento de Software Multiplataforma</h3>
+                            <div class="org">Faculdade de Tecnologia do Estado de São Paulo — FATEC</div>
+                            <p>Graduação tecnológica com foco em desenvolvimento de software multiplataforma.</p>
+                        </div>
+                        <div class="timeline-item">
+                            <div class="timeline-meta">2022 — 2024 · Concluído</div>
+                            <h3>Ensino Médio Integrado com Desenvolvimento de Sistemas</h3>
+                            <div class="org">Escola Técnica Estadual de São Paulo — ETEC</div>
+                            <p>Formação integrada ao ensino médio com base técnica em desenvolvimento de sistemas.</p>
+                        </div>
+                    </div>
+                </div>
+                <div class="panel">
+                    <h3>Cursos e complementações</h3>
+                    <div class="course-grid">
+                        <article class="course-card"><h3>Projetos de Sistemas de TI</h3><p>Fundação Bradesco</p></article>
+                        <article class="course-card"><h3>Ética no Desenvolvimento de Sistemas</h3><p>Fundação Bradesco</p></article>
+                        <article class="course-card"><h3>Linguagem de Modelagem Unificada (UML)</h3><p>Fundação Bradesco</p></article>
+                        <article class="course-card"><h3>Introdução à Gestão de Projetos</h3><p>Fundação Bradesco</p></article>
+                        <article class="course-card"><h3>Inglês intermediário</h3><p>Curso complementar</p></article>
+                    </div>
+                </div>
+            </div>
+        </section>
+
+        <section id="experiencia" class="reveal">
+            <div class="section-head">
+                <div class="section-kicker">06 · Experiência profissional</div>
+                <h2>Primeira oportunidade em tecnologia.</h2>
+                <p>Uma apresentação profissional e transparente sobre o momento atual da carreira.</p>
+            </div>
+            <div class="experience-card">
+                <div class="experience-icon">01</div>
+                <div>
+                    <h3>Buscando a primeira experiência profissional na área de desenvolvimento</h3>
+                    <p>Atualmente não possuo vínculo profissional formal em uma empresa de tecnologia. Minha experiência prática foi construída por meio da formação técnica, graduação e projetos acadêmicos, e estou em busca de uma oportunidade de estágio para aplicar e ampliar esses conhecimentos em ambiente profissional.</p>
+                </div>
+            </div>
+        </section>
+
+        <section id="contato" class="reveal">
+            <div class="cta">
+                <div>
+                    <div class="section-kicker">07 · Contato</div>
+                    <h2>Vamos conversar?</h2>
+                    <p>Estou aberto a oportunidades de estágio e desafios que permitam evoluir como desenvolvedor.</p>
+                </div>
+                <div class="hero-actions" style="margin:0">
+                    <a class="btn btn-primary" href="mailto:vitorfaccini93@gmail.com">Enviar e-mail</a>
+                    <a class="btn btn-secondary" href="https://github.com/VIT0R-maker/Portfolio-FUKUTA" target="_blank" rel="noopener noreferrer">GitHub</a>
+                </div>
+            </div>
+        </section>
+    </main>
 
     <footer>
-        &copy; 2026 Vitor Faccini da Cruz Morais. Desenvolvido e hospedado em NGINX / Microsoft Azure.
+        <div class="page-shell footer-inner">
+            <span>© <span id="year"></span> Vitor Morais. Portfólio profissional.</span>
+            <span>Desenvolvimento de Software Multiplataforma · FATEC</span>
+        </div>
     </footer>
 
-    <!-- JANELA MODAL (ESCONDIDA POR PADRÃO) -->
-    <div id="janela-modal" class="modal">
-        <div class="modal-content">
-            <h3 id="modal-titulo">Tecnologia</h3>
-            <p id="modal-descricao">Descrição detalhada vai aparecer aqui.</p>
-            <button class="close-btn" onclick="fecharDetalhes()">Fechar</button>
-        </div>
-    </div>
-
     <script>
-        // Banco de dados com os resumos das linguagens
-        const descricoes = {
-            'Java': 'Linguagem orientada a objetos poderosa, robusta e muito utilizada no mercado corporativo para construção de APIs sólidas e desenvolvimento backend escalável.',
-            'Python': 'Linguagem de sintaxe clara e versátil. Excelente para análise de dados, inteligência artificial, automação e desenvolvimento de servidores backend.',
-            'TypeScript': 'Um superconjunto do JavaScript que adiciona tipagem estática. Ajuda a prevenir erros durante o desenvolvimento e torna o código muito mais escalável.',
-            'Node.js': 'Ambiente de execução Javascript no servidor. Permite criar aplicações de rede rápidas e escaláveis. Frequentemente utilizado em conjunto com o framework Express.',
-            'Next.js': 'Framework React para web full-stack. Traz recursos modernos como Renderização no Servidor (SSR) e Geração de Sites Estáticos (SSG) para altíssima performance.',
-            'Prisma / MongoDB': 'MongoDB é um banco NoSQL flexível e orientado a documentos. O Prisma atua como um ORM moderno e rigorosamente tipado, facilitando consultas complexas.',
-            'Power BI': 'Plataforma líder da Microsoft para Business Intelligence. Utilizada para estruturar dados, criar relatórios dinâmicos e dashboards gerenciais interativos.',
-            'Linux': 'Sistema operacional base para infraestrutura de nuvem global. Conhecimento sólido em linha de comando Ubuntu para configuração de firewall (UFW), SSH, SCP e servidores web (NGINX).'
-        };
+        const observer = new IntersectionObserver((entries) => {
+            entries.forEach((entry) => {
+                if (entry.isIntersecting) entry.target.classList.add('visible');
+            });
+        }, { threshold: 0.12 });
 
-        function abrirDetalhes(tecnologia) {
-            document.getElementById('modal-titulo').innerText = tecnologia;
-            document.getElementById('modal-descricao').innerText = descricoes[tecnologia];
-            document.getElementById('janela-modal').style.display = 'flex';
-        }
-
-        function fecharDetalhes() {
-            document.getElementById('janela-modal').style.display = 'none';
-        }
-
-        // Fechar janela clicando fora dela
-        window.onclick = function(event) {
-            const modal = document.getElementById('janela-modal');
-            if (event.target === modal) {
-                fecharDetalhes();
-            }
-        }
+        document.querySelectorAll('.reveal').forEach((element) => observer.observe(element));
+        document.getElementById('year').textContent = new Date().getFullYear();
     </script>
 </body>
 </html>
